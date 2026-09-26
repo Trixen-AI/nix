@@ -33,7 +33,7 @@ export function Marquee() {
   const items = [...base, ...base];
 
   return (
-    <section className="section" id="chains" aria-label="Chains Nix Shield bridges to">
+    <section className="section" id="chains" aria-label="Built on Solana">
       <div className="container marquee">
         <div className="marquee-mask">
           <div className="marquee-track" ref={trackRef}>

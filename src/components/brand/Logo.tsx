@@ -6,23 +6,21 @@ type Props = {
   title?: string;
 };
 
-function Mark({ ink, line }: { ink: string; line: string }) {
-  const b = LOGO.bar;
+function Mark() {
   return (
     <>
-      <path d={LOGO.shield} fill={ink} />
-      <rect x={b.x} y={b.y} width={b.w} height={b.h} rx={b.r} fill={line} />
+      <path d={LOGO.shield} fill="var(--accent)" />
+      <path d={LOGO.z} fill="var(--white)" />
     </>
   );
 }
 
-/** The Nix Shield lockup: shield mark with a redaction bar, plus the outlined wordmark. */
-export function Logo({ className, tone = 'light', title = 'Nix Shield' }: Props) {
+/** The Zentry lockup: violet shield with a Z-shaped route cut through it, plus the outlined wordmark. */
+export function Logo({ className, tone = 'light', title = 'Zentry' }: Props) {
   const ink = tone === 'light' ? 'var(--ink)' : 'var(--white)';
-  const line = tone === 'light' ? 'var(--accent)' : 'var(--accent-deep)';
   return (
     <svg className={className} viewBox={`0 0 ${LOGO.width} ${LOGO.height}`} role="img" aria-label={title}>
-      <Mark ink={ink} line={line} />
+      <Mark />
       <path d={LOGO.word} fill={ink} />
     </svg>
   );
@@ -31,7 +29,7 @@ export function Logo({ className, tone = 'light', title = 'Nix Shield' }: Props)
 export function LogoMark({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 64 64" aria-hidden="true">
-      <Mark ink="var(--ink)" line="var(--accent)" />
+      <Mark />
     </svg>
   );
 }
@@ -44,8 +42,8 @@ export function FooterWordmark() {
     <svg className="footer-wordmark" viewBox={`${x - 1} 2 ${w + 2} 48`} aria-hidden="true" preserveAspectRatio="xMidYMin meet">
       <defs>
         <linearGradient id="fw-fade" x1="0" y1="2" x2="0" y2="50" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#b2b8b5" />
-          <stop offset="1" stopColor="#b2b8b5" stopOpacity="0.08" />
+          <stop offset="0" stopColor="#b4b4bd" />
+          <stop offset="1" stopColor="#b4b4bd" stopOpacity="0.08" />
         </linearGradient>
       </defs>
       <path d={LOGO.word} fill="url(#fw-fade)" />

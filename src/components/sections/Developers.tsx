@@ -4,20 +4,20 @@ import { DEV } from '@/data/content';
 
 type Tok = [cls: '' | 'c' | 'k' | 's' | 'n' | 'f', text: string];
 
-// Terminal session for nixshield (the product's own command line tool).
+// Terminal session for zentry (the product's own command line tool).
 const LINES: Tok[][] = [
-  [['k', '$'], ['', ' nixshield '], ['f', '--init'], ['', ' '], ['f', '--stealth']],
-  [['s', '[NIX]'], ['', ' Opening secure session...']],
-  [['s', '[NIX]'], ['', ' zk-SNARK circuits loaded '], ['c', '(3 circuits)']],
-  [['s', '[NIX]'], ['', ' Relay network: '], ['n', '24'], ['', ' nodes active']],
-  [['s', '[NIX]'], ['', ' Stealth mode: '], ['k', 'ENABLED']],
-  [['s', '[NIX]'], ['', ' Default tier: '], ['n', 'ENHANCED'], ['', ' (5 hops + zk)']],
-  [['s', '[NIX]'], ['', ' Ready for private transactions']],
+  [['k', '$'], ['', ' zentry '], ['f', '--init'], ['', ' '], ['f', '--stealth']],
+  [['s', '[ZEN]'], ['', ' Opening secure session on Solana...']],
+  [['s', '[ZEN]'], ['', ' zk-SNARK circuits loaded '], ['c', '(3 circuits)']],
+  [['s', '[ZEN]'], ['', ' Relay network: '], ['n', '24'], ['', ' nodes active']],
+  [['s', '[ZEN]'], ['', ' Stealth mode: '], ['k', 'ENABLED']],
+  [['s', '[ZEN]'], ['', ' Default tier: '], ['n', 'ENHANCED'], ['', ' (5 hops + zk)']],
+  [['s', '[ZEN]'], ['', ' Ready for private transactions']],
   [],
-  [['k', '$'], ['', ' nixshield send '], ['f', '--to'], ['', ' 0x71fa...c3b8 '], ['f', '--amount'], ['', ' '], ['n', '25'], ['', ' '], ['f', '--asset'], ['', ' USDC']],
-  [['s', '[NIX]'], ['', ' Proof generated locally '], ['c', '(1.8s)']],
-  [['s', '[NIX]'], ['', ' Routed through 5 relayers, commitment '], ['n', 'zk:7c1e...f0']],
-  [['s', '[NIX]'], ['', ' Settled. Nothing links origin to destination.']],
+  [['k', '$'], ['', ' zentry send '], ['f', '--to'], ['', ' Hn6W...c3R8 '], ['f', '--amount'], ['', ' '], ['n', '25'], ['', ' '], ['f', '--asset'], ['', ' USDC']],
+  [['s', '[ZEN]'], ['', ' Proof generated locally '], ['c', '(1.8s)']],
+  [['s', '[ZEN]'], ['', ' Routed through 5 relayers, commitment '], ['n', 'zk:7c1e...f0']],
+  [['s', '[ZEN]'], ['', ' Settled. Nothing links origin to destination.']],
   [['k', '$'], ['', ' '], ['f', '_']],
 ];
 

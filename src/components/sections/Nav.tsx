@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Logo } from '@/components/brand/Logo';
 import { ArrowNE, Icon } from '@/components/ui/Icon';
+import { SiteLink } from '@/components/ui/SiteLink';
 import { DASHBOARD_URL, NAV_NETWORK, NAV_PROTOCOL, NAV_RESOURCES, type NavLink } from '@/data/content';
 
 type MenuKey = 'protocol' | 'network' | 'resources';
-
-const ext = (l: NavLink) => (l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {});
 
 function ProtocolColumns() {
   return (
@@ -14,7 +13,7 @@ function ProtocolColumns() {
         <div className="dd-col" key={col.title}>
           <p className="dd-title">{col.title}</p>
           {col.links.map((l) => (
-            <a className="dd-link" href={l.href} key={l.label} {...ext(l)}>
+            <SiteLink className="dd-link" href={l.href} key={l.label} external={l.external}>
               {l.icon ? (
                 <span className="dd-icon">
                   <Icon name={l.icon} />
@@ -22,7 +21,7 @@ function ProtocolColumns() {
               ) : null}
               {l.label}
               {l.external ? <ArrowNE /> : null}
-            </a>
+            </SiteLink>
           ))}
         </div>
       ))}
@@ -34,10 +33,10 @@ function PlainList({ links }: { links: NavLink[] }) {
   return (
     <>
       {links.map((l) => (
-        <a href={l.href} key={l.label} {...ext(l)}>
+        <SiteLink href={l.href} key={l.label} external={l.external}>
           {l.label}
           {l.external ? <ArrowNE /> : null}
-        </a>
+        </SiteLink>
       ))}
     </>
   );
@@ -79,7 +78,7 @@ export function Nav() {
   return (
     <header className={`nav${mobileOpen ? ' menu-open' : ''}`}>
       <div className="container nav-inner">
-        <a className="nav-logo" href="#top" aria-label="Nix Shield home">
+        <a className="nav-logo" href="#top" aria-label="Zentry home">
           <Logo />
         </a>
 
@@ -106,9 +105,9 @@ export function Nav() {
         </nav>
 
         <div className="nav-actions">
-          <a className="btn btn-dark" href={DASHBOARD_URL}>
+          <SiteLink className="btn btn-dark" href={DASHBOARD_URL}>
             Dashboard
-          </a>
+          </SiteLink>
           <button
             type="button"
             className="nav-burger"

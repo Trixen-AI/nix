@@ -1,5 +1,6 @@
 import { useRef, type ReactNode } from 'react';
 import { ArrowNE } from './Icon';
+import { SiteLink } from './SiteLink';
 
 const GLYPHS = 'abcdefghijklmnopqrstuvwxyz0123456789';
 const STEP_MS = 30;
@@ -32,14 +33,9 @@ export function ScrambleLink({ href, label, external, className }: Props) {
   };
 
   return (
-    <a
-      href={href}
-      className={className}
-      onMouseEnter={run}
-      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-    >
+    <SiteLink href={href} external={external} className={className} onMouseEnter={run}>
       <span ref={textRef}>{label}</span>
       {external ? <ArrowNE /> : null}
-    </a>
+    </SiteLink>
   );
 }

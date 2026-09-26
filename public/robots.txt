@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nixshield.org/sitemap.xml
+Sitemap: https://zentry-shield.xyz/sitemap.xml

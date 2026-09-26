@@ -2,13 +2,14 @@ import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Logo } from '@/components/brand/Logo';
 import { Icon } from '@/components/ui/Icon';
-import { APP_URL, STORIES } from '@/data/content';
+import { SiteLink } from '@/components/ui/SiteLink';
+import { STORIES } from '@/data/content';
 
 const TINTS: Record<string, string> = {
-  mint:
-    'radial-gradient(65% 90% at 12% 70%, #7df0c0 0%, rgba(125,240,192,0) 70%), radial-gradient(40% 60% at 30% 95%, #c9f8e3 0%, rgba(201,248,227,0) 70%), linear-gradient(120deg, #ecfbf4 0%, #fbfdfc 50%, #eef1f6 100%)',
+  violet:
+    'radial-gradient(65% 90% at 12% 70%, #a586ff 0%, rgba(165,134,255,0) 70%), radial-gradient(40% 60% at 30% 95%, #d9ccff 0%, rgba(217,204,255,0) 70%), linear-gradient(120deg, #f1ecff 0%, #fbfaff 50%, #f0f0f4 100%)',
   fog:
-    'radial-gradient(60% 90% at 15% 65%, #cfd8e6 0%, rgba(207,216,230,0) 70%), radial-gradient(45% 60% at 85% 20%, #c9f8e3 0%, rgba(201,248,227,0) 70%), linear-gradient(120deg, #eef2f7 0%, #fbfcfd 55%, #eef3f1 100%)',
+    'radial-gradient(60% 90% at 15% 65%, #d6d6e0 0%, rgba(214,214,224,0) 70%), radial-gradient(45% 60% at 85% 20%, #e3d9ff 0%, rgba(227,217,255,0) 70%), linear-gradient(120deg, #f0f0f4 0%, #fbfbfd 55%, #f3f0fb 100%)',
 };
 
 // Reference: loop, one slide per view, pill pagination and round arrows.
@@ -57,9 +58,9 @@ export function Stories() {
                   <p className="p">{s.body}</p>
                   <p className="story-prompt">{s.prompt}</p>
                 </div>
-                <a className="btn btn-dark" href={APP_URL}>
+                <SiteLink className="btn btn-dark" href={s.href}>
                   Open module
-                </a>
+                </SiteLink>
               </div>
             </SwiperSlide>
           ))}

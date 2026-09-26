@@ -1,7 +1,7 @@
 {
-  "name": "Nix Shield",
-  "short_name": "Nix Shield",
-  "description": "Zero-knowledge privacy infrastructure for onchain transactions.",
+  "name": "Zentry",
+  "short_name": "Zentry",
+  "description": "Zero-knowledge privacy infrastructure for Solana transactions.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

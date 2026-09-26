@@ -1,27 +1,35 @@
 :root {
-  /* Palette */
-  --ink: #0a0d0c;
-  --ink-2: #1f2422;
+  /* Palette: violet on white, near-black focal panels (after arcium.com) */
+  --ink: #0a0a0c;
+  --ink-2: #1a1a1f;
   --white: #ffffff;
-  --accent: #7df0c0;
-  --accent-medium: #aaf6d6;
-  --accent-light: #d6fbea;
-  --accent-soft: #effcf6;
-  --accent-deep: #0e9467;
-  --fog: #e3e8f0;
-  --card-grey: #eff1f0;
-  --soft-grey: #f3f5f4;
-  --medium-grey: #d6dbd9;
-  --dark-grey: #aeb5b2;
-  --line-grey: #e0e5e3;
-  --pagination-active: #75807b;
-  --ink-64: rgba(10, 16, 14, 0.64);
-  --ink-36: rgba(10, 16, 14, 0.36);
+  --accent: #6d45ff;
+  --accent-hover: #5a33e6;
+  --accent-medium: #a586ff;
+  --accent-light: #c7b3ff;
+  --accent-soft: #f1ecff;
+  --accent-deep: #5a33e6;
+  --fog: #ececf1;
+  --card-grey: #f2f2f3;
+  --soft-grey: #f7f7f8;
+  --medium-grey: #dededf;
+  --dark-grey: #b4b4bd;
+  --line-grey: #e6e6e8;
+  --pagination-active: #82828c;
+  --ink-64: rgba(10, 10, 12, 0.64);
+  --ink-36: rgba(10, 10, 12, 0.36);
   --white-40: rgba(255, 255, 255, 0.4);
+  /* Status (dashboard), from the same reference palette */
+  --ok: #1f9d6b;
+  --ok-soft: #e6f5ee;
+  --warn: #c9760a;
+  --warn-soft: #fcf1e2;
+  --danger: #d83a3a;
+  --danger-soft: #fbe8e8;
 
-  --frame-gradient: linear-gradient(315deg, #9df3cf, #e2fbef 41%, #e6eaf2);
-  --cta-gradient: linear-gradient(100deg, #edf0ef 0%, #f6f8f7 55%, #fdfefd 100%);
-  --text-gradient: linear-gradient(90deg, #dcfcee 0%, #7df0c0 34%, #f3f5fc 76%);
+  --frame-gradient: linear-gradient(315deg, #c7b3ff, #f1ecff 41%, #f2f2f3);
+  --cta-gradient: linear-gradient(100deg, #f2f2f3 0%, #f7f7f8 55%, #ffffff 100%);
+  --text-gradient: linear-gradient(90deg, #e3d9ff 0%, #a586ff 34%, #f7f7f8 76%);
 
   /* Type */
   --font-sans: 'Outfit Variable', 'Outfit', system-ui, sans-serif;

@@ -12,7 +12,7 @@ export function Intro() {
           <h2 className="h2">{INTRO.title}</h2>
           <p className="p">{INTRO.body}</p>
         </div>
-        <div className="scene" role="img" aria-label="Traceable transactions pass behind the Nix Shield and come out as private zero-knowledge commitments">
+        <div className="scene" role="img" aria-label="Traceable transactions pass behind the Zentry and come out as private zero-knowledge commitments">
           <Suspense fallback={null}>
             <AgentScene />
           </Suspense>

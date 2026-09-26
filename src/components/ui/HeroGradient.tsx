@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-// Slow, flowing mint / fog / pearl field. Time-driven, pauses offscreen,
+// Slow, flowing violet / lilac / pearl field. Time-driven, pauses offscreen,
 // static fallback for reduced motion or missing WebGL.
 const VERT = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
 
@@ -39,11 +39,11 @@ void main(){
   vec2 r = vec2(layered(p + 2.2 * q + vec2(1.7, 9.2) + t * 0.6), layered(p + 2.2 * q + vec2(8.3, 2.8) - t * 0.4));
   float f = layered(p + 1.8 * r);
 
-  vec3 pearl = vec3(0.970, 0.980, 0.976);
-  vec3 lav   = vec3(0.490, 0.940, 0.753);
-  vec3 lavLo = vec3(0.800, 0.965, 0.890);
-  vec3 mint  = vec3(0.870, 0.900, 0.945);
-  vec3 blush = vec3(0.935, 0.960, 0.990);
+  vec3 pearl = vec3(0.976, 0.973, 0.992);
+  vec3 lav   = vec3(0.690, 0.580, 1.000);
+  vec3 lavLo = vec3(0.890, 0.851, 1.000);
+  vec3 mint  = vec3(0.910, 0.906, 0.950);
+  vec3 blush = vec3(0.953, 0.941, 0.996);
 
   // sweeping lavender tide from the left edge
   float tide = smoothstep(0.62, 0.05, uv.x + (f - 0.5) * 0.9 + 0.12 * sin(t * 3.0 + uv.y * 2.5));

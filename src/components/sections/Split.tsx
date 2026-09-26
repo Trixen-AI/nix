@@ -1,5 +1,6 @@
 import { Icon } from '@/components/ui/Icon';
 import { SPLIT } from '@/data/content';
+import { LOGO } from '@/data/logo';
 
 const FOCUS = 2;
 
@@ -60,8 +61,8 @@ const LINKS: [number, number][] = [
   [6, 8],
 ];
 const LIT = new Set([1, 4, 7]);
-const MINT = '#7df0c0';
-const DIM = '#2c3a35';
+const LIT_C = '#8a63ff';
+const DIM = '#2a2733';
 
 const curve = (a: [number, number], b: [number, number]) =>
   `M${a[0]} ${a[1]} C${a[0] + 50} ${a[1]} ${b[0] - 50} ${b[1]} ${b[0]} ${b[1]}`;
@@ -71,26 +72,28 @@ function RelayArt() {
     <div className="split-art left approve-art" aria-hidden="true">
       <svg viewBox="0 0 460 360" fill="none">
         {[0, 1, 2].map((i) => (
-          <path key={`in${i}`} d={curve([74, 180], HOPS[i])} stroke={i === 1 ? MINT : DIM} strokeWidth={i === 1 ? 2.2 : 1.6} />
+          <path key={`in${i}`} d={curve([74, 180], HOPS[i])} stroke={i === 1 ? LIT_C : DIM} strokeWidth={i === 1 ? 2.2 : 1.6} />
         ))}
         {LINKS.map(([a, b]) => {
           const lit = LIT.has(a) && LIT.has(b);
-          return <path key={`${a}-${b}`} d={curve(HOPS[a], HOPS[b])} stroke={lit ? MINT : DIM} strokeWidth={lit ? 2.2 : 1.6} />;
+          return <path key={`${a}-${b}`} d={curve(HOPS[a], HOPS[b])} stroke={lit ? LIT_C : DIM} strokeWidth={lit ? 2.2 : 1.6} />;
         })}
         {[7, 8].map((i) => (
-          <path key={`out${i}`} d={curve(HOPS[i], [396, 180])} stroke={i === 7 ? MINT : DIM} strokeWidth={i === 7 ? 2.2 : 1.6} />
+          <path key={`out${i}`} d={curve(HOPS[i], [396, 180])} stroke={i === 7 ? LIT_C : DIM} strokeWidth={i === 7 ? 2.2 : 1.6} />
         ))}
         {HOPS.map(([x, y], i) => (
           <g key={i}>
-            <circle cx={x} cy={y} r="13" fill="#121816" stroke={LIT.has(i) ? MINT : '#34423d'} strokeWidth="1.6" />
-            <circle cx={x} cy={y} r="3" fill={LIT.has(i) ? MINT : '#4b5a55'} />
+            <circle cx={x} cy={y} r="13" fill="#141318" stroke={LIT.has(i) ? LIT_C : '#34313f'} strokeWidth="1.6" />
+            <circle cx={x} cy={y} r="3" fill={LIT.has(i) ? LIT_C : '#4a4756'} />
           </g>
         ))}
-        <rect x="26" y="156" width="48" height="48" rx="10" fill="#e9fbf2" />
-        <path d="M50 164 L62 168 V177 C62 185 57 190.5 50 193.5 C43 190.5 38 185 38 177 V168 Z" fill="#0a0d0c" />
-        <rect x="42" y="175" width="16" height="5" rx="1.5" fill={MINT} />
-        <rect x="396" y="160" width="46" height="40" rx="8" fill={MINT} />
-        <text x="419" y="185" textAnchor="middle" fontFamily="JetBrains Mono Variable, monospace" fontSize="13" fontWeight="600" fill="#0a0d0c">
+        <rect x="26" y="156" width="48" height="48" rx="10" fill="#f1ecff" />
+        <g transform="translate(32.5 161.8) scale(0.545)">
+          <path d={LOGO.shield} fill="#6d45ff" />
+          <path d={LOGO.z} fill="#ffffff" />
+        </g>
+        <rect x="396" y="160" width="46" height="40" rx="8" fill="#6d45ff" />
+        <text x="419" y="185" textAnchor="middle" fontFamily="JetBrains Mono Variable, monospace" fontSize="13" fontWeight="600" fill="#ffffff">
           zk
         </text>
       </svg>

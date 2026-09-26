@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
-// Traceable transactions ("0x" chips) drift left to right, pass behind a frosted glass shield
+// Traceable Solana transfers ("SOL" chips) drift left to right, pass behind a frosted glass shield
 // and come out as zero-knowledge commitments ("zk" chips with a lock badge).
 // Time-driven loop, like the reference scene.
 
@@ -27,20 +27,20 @@ function faceTexture(kind: 'public' | 'private') {
   g.textAlign = 'center';
   g.textBaseline = 'middle';
   if (kind === 'public') {
-    g.font = '600 92px JetBrains Mono Variable, monospace';
-    g.fillText('0x', s / 2, s / 2 + 6);
+    g.font = '600 72px JetBrains Mono Variable, monospace';
+    g.fillText('SOL', s / 2, s / 2 + 6);
   } else {
     g.font = '600 88px JetBrains Mono Variable, monospace';
     g.fillText('zk', s * 0.44, s / 2 + 2);
     // lock badge
     g.beginPath();
     g.arc(s * 0.74, s * 0.72, s * 0.17, 0, Math.PI * 2);
-    g.fillStyle = '#7df0c0';
+    g.fillStyle = '#6d45ff';
     g.fill();
-    g.fillStyle = '#0a0d0c';
+    g.fillStyle = '#ffffff';
     g.fillRect(s * 0.685, s * 0.715, s * 0.11, s * 0.075);
     g.lineWidth = 8;
-    g.strokeStyle = '#0a0d0c';
+    g.strokeStyle = '#ffffff';
     g.beginPath();
     g.arc(s * 0.74, s * 0.715, s * 0.034, Math.PI, 0);
     g.stroke();
@@ -52,7 +52,7 @@ function faceTexture(kind: 'public' | 'private') {
 }
 
 function shieldShape() {
-  // The Nix Shield outline (same proportions as the logo mark), centred on the origin.
+  // The Zentry outline (same proportions as the logo mark), centred on the origin.
   const w = GLASS_HALF_W;
   const top = 2.9;
   const s = new THREE.Shape();
@@ -111,12 +111,12 @@ export default function AgentScene() {
     });
     glassGeo.center();
     const glassMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#f2f6f4'),
+      color: new THREE.Color('#f5f3fc'),
       transmission: 1,
       roughness: 0.4,
       thickness: 1.6,
       ior: 1.35,
-      attenuationColor: new THREE.Color('#e6f7ef'),
+      attenuationColor: new THREE.Color('#ece6ff'),
       attenuationDistance: 3,
       clearcoat: 1,
       clearcoatRoughness: 0.25,
@@ -137,8 +137,8 @@ export default function AgentScene() {
     rim.position.z = 1.9;
     group.add(rim);
 
-    // Mint light streaks behind the glass (the transmission blurs them into colour bands)
-    const streakMat = new THREE.MeshBasicMaterial({ color: new THREE.Color('#3ee0a0'), toneMapped: false });
+    // Violet light streaks behind the glass (the transmission blurs them into colour bands)
+    const streakMat = new THREE.MeshBasicMaterial({ color: new THREE.Color('#6d45ff'), toneMapped: false });
     const streaks: THREE.Mesh[] = [];
     [
       { x: -0.7, y: 1.0, r: 0.7, w: 2.2 },

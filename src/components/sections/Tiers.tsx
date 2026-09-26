@@ -1,4 +1,5 @@
 import { Icon } from '@/components/ui/Icon';
+import { SiteLink } from '@/components/ui/SiteLink';
 import { APP_URL, TIERS } from '@/data/content';
 
 type Mock = (typeof TIERS.cards)[number]['mock'];
@@ -13,8 +14,8 @@ function TxMock({ mock, label }: { mock: Mock; label: string }) {
           <span>Destination</span>
         </div>
         <div className="mock-row mono">
-          <span>0x3a...e19c</span>
-          <span>0x••••••••</span>
+          <span>9vRa...E19c</span>
+          <span>••••...••••</span>
         </div>
         <div className="mock-divider" />
         <div className="mock-row">
@@ -57,7 +58,7 @@ export function Tiers() {
           </div>
           <div className="action-cards">
             {TIERS.cards.map((c) => (
-              <a className="glass-card" href={APP_URL} key={c.label}>
+              <SiteLink className="glass-card" href={`${APP_URL}?tier=${c.label.toLowerCase()}`} key={c.label}>
                 <TxMock mock={c.mock} label={c.label} />
                 <div className="action-copy">
                   <h3 className="card-label">
@@ -67,7 +68,7 @@ export function Tiers() {
                   <h4 className="h4">{c.title}</h4>
                   <p className="p">{c.body}</p>
                 </div>
-              </a>
+              </SiteLink>
             ))}
           </div>
         </div>

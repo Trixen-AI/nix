@@ -1,4 +1,4 @@
-# Netlify deploy settings for Nix Shield (https://nixshield.org)
+# Netlify deploy settings for Zentry (https://zentry-shield.xyz)
 
 [build]
   command = "npm run build"
@@ -6,16 +6,18 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  VITE_SITE_URL = "https://nixshield.org"
+  VITE_SITE_URL = "https://zentry-shield.xyz"
+  # Set VITE_REOWN_PROJECT_ID (and optionally VITE_SOLANA_RPC_URL)
+  # in Netlify: Site configuration > Environment variables. They are not stored in this repo.
 
 # www -> apex
 [[redirects]]
-  from = "https://www.nixshield.org/*"
-  to = "https://nixshield.org/:splat"
+  from = "https://www.zentry-shield.xyz/*"
+  to = "https://zentry-shield.xyz/:splat"
   status = 301
   force = true
 
-# Single-page app: unknown paths serve the app
+# Single-page app: /app/* and unknown paths serve the app (React Router handles them)
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -35,6 +37,12 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Dashboard pages stay out of search results
+[[headers]]
+  for = "/app/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
   for = "/index.html"
