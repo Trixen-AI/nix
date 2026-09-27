@@ -402,6 +402,63 @@
 .hero-text .p {
   max-width: 360px;
 }
+.hero-ca {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  max-width: 100%;
+  margin-top: 8px;
+  padding: 6px 6px 6px 8px;
+  border-radius: var(--radius);
+  border: 0.8px solid var(--white-40);
+  background: rgba(255, 255, 255, 0.46);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.hero-ca-label {
+  flex: none;
+  padding: 3px 7px 2px;
+  border-radius: var(--radius-tiny);
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.hero-ca-addr {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink);
+}
+.hero-ca-addr:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hero-ca-copy {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--radius-tiny);
+  background: var(--accent);
+  color: var(--white);
+  font-size: 13px;
+  transition: background-color 0.2s ease;
+}
+.hero-ca-copy:hover {
+  background: var(--accent-hover);
+}
+.hero-ca-copy svg {
+  width: 14px;
+  height: 14px;
+}
 .hero-stats {
   position: absolute;
   left: 32px;

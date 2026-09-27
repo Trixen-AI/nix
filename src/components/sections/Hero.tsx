@@ -1,6 +1,42 @@
+import { useRef, useState } from 'react';
 import { HeroGradient } from '@/components/ui/HeroGradient';
 import { Icon } from '@/components/ui/Icon';
 import { HERO } from '@/data/content';
+import { CONTRACT_ADDRESS } from '@/data/site';
+
+/** Token contract address with a one-click copy. */
+function ContractAddress() {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTRACT_ADDRESS);
+      setCopied(true);
+      window.clearTimeout(timer.current);
+      timer.current = window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      /* clipboard blocked: the address stays selectable */
+    }
+  };
+  return (
+    <div className="hero-ca">
+      <span className="hero-ca-label">CA</span>
+      <a
+        className="hero-ca-addr"
+        href={`https://solscan.io/token/${CONTRACT_ADDRESS}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={CONTRACT_ADDRESS}
+      >
+        {CONTRACT_ADDRESS}
+      </a>
+      <button type="button" className="hero-ca-copy" onClick={copy} aria-label={copied ? 'Contract address copied' : 'Copy contract address'}>
+        <Icon name={copied ? 'check' : 'copy'} />
+        <span>{copied ? 'Copied' : 'Copy'}</span>
+      </button>
+    </div>
+  );
+}
 
 export function Hero() {
   return (
@@ -16,6 +52,7 @@ export function Hero() {
               {HERO.title[1]}
             </h1>
             <p className="p">{HERO.body}</p>
+            <ContractAddress />
           </div>
 
           <div className="hero-stats">
