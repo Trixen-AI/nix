@@ -1,5 +1,5 @@
-// Builds the Zentry logo from one source: the mark geometry below + the "zentry" wordmark
-// outlined from Outfit Medium. Writes the React path data, the SVG files and the PNG exports.
+// Builds the ZKSona logo from one source: the mark geometry below + the "zksona" wordmark outlined from
+// Bricolage Grotesque ExtraBold. Writes the React path data, the SVG files, the PNG exports and the social images.
 // Run: node scripts/build-logo.mjs
 import fs from 'node:fs';
 import path from 'node:path';
@@ -7,46 +7,47 @@ import opentype from 'opentype.js';
 import { Resvg } from '@resvg/resvg-js';
 
 const root = path.resolve(import.meta.dirname, '..');
-const INK = '#0a0a0c';
-const ACCENT = '#6d45ff';
-const ACCENT_DEEP = '#5a33e6';
-const ACCENT_SOFT = '#f1ecff';
-const SURFACE = '#ffffff';
+const INK = '#0a0a0b';
+const ACCENT = '#f98500';
+const PAPER = '#ffffff';
+const MIST = '#f3f3f3';
+const MINT = '#71cfa3';
+const SKY = '#bcefff';
 
-// Mark: a violet shield with a Z-shaped channel cut through it. The Z is the name's initial and
-// the route a private transaction takes: in at the top, across, out at the bottom. 64-unit grid.
-const shield = 'M32 4 L54 11.5 V29 C54 44 44.5 54.5 32 60 C19.5 54.5 10 44 10 29 V11.5 Z';
-const z = 'M20 15 H44 V21 L28.5 37 H44 V43 H20 V37 L35.5 21 H20 Z';
-const cy = 18;
-const r = 30; // lockup baseline sits at cy + r = 48
-// Wordmark
-const font = opentype.parse(fs.readFileSync(path.join(root, 'scripts/fonts/Outfit-Medium.ttf')).buffer);
-const size = 62;
-const tracking = -0.01 * size;
-const word = 'zentry';
+// Mark: an eclipse on an orange tile. A persona (the dark disc) that is there but cannot be seen whole:
+// the chain knows something is valid without seeing who. 64-unit grid.
+const mark = {
+  tile: { x: 0, y: 0, w: 64, h: 64, r: 16 },
+  disc: { cx: 30, cy: 34, r: 18 },
+  cover: { cx: 40, cy: 26, r: 14 },
+};
+const markSvg = (tileFill = ACCENT, discFill = INK) =>
+  `<rect x="0" y="0" width="64" height="64" rx="16" fill="${tileFill}"/>` +
+  `<circle cx="${mark.disc.cx}" cy="${mark.disc.cy}" r="${mark.disc.r}" fill="${discFill}"/>` +
+  `<circle cx="${mark.cover.cx}" cy="${mark.cover.cy}" r="${mark.cover.r}" fill="${tileFill}"/>`;
+
+// Wordmark, outlined so it looks the same without the web font
+const fontFile = path.join(root, 'node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff');
+const buf = fs.readFileSync(fontFile);
+const font = opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
+const size = 60;
+const tracking = -0.035 * size;
+const word = 'zksona';
+const glyphs = [...word].map((ch) => font.charToGlyph(ch));
 const advance = (i) => {
   const g = glyphs[i];
   const next = glyphs[i + 1];
   const rawKern = next ? font.getKerningValue(g, next) : 0;
   const kern = Number.isFinite(rawKern) ? rawKern : 0;
-  // The space glyph in this font carries no advance width, so fall back to a word space.
-  const aw = Number.isFinite(g.advanceWidth) && g.advanceWidth > 0 ? g.advanceWidth : font.unitsPerEm * 0.24;
-  return ((aw + kern) / font.unitsPerEm) * size + tracking;
+  return ((g.advanceWidth + kern) / font.unitsPerEm) * size + tracking;
 };
-const glyphs = [...word].map((ch) => font.charToGlyph(ch));
 const originX = glyphs.map((_, i) => glyphs.slice(0, i).reduce((sum, __, k) => sum + advance(k), 0));
-// Bounding box of the outlined word (baseline at y=0)
-const wordBox = { x1: Infinity, x2: -Infinity };
+const box = { x1: Infinity, x2: -Infinity };
 glyphs.forEach((g, i) => {
   const b = g.getPath(originX[i], 0, size).getBoundingBox();
-  wordBox.x1 = Math.min(wordBox.x1, b.x1);
-  wordBox.x2 = Math.max(wordBox.x2, b.x2);
+  box.x1 = Math.min(box.x1, b.x1);
+  box.x2 = Math.max(box.x2, b.x2);
 });
-const x2 = wordBox.x2;
-// Place the word: baseline at y=48, level with the widest part of the shield
-const baseline = cy + r; // 48
-const wordOffsetX = 76 - wordBox.x1;
-// opentype.js's toPathData() emits NaN for some coordinates in this font, so serialise the commands directly.
 const n2 = (v) => (Math.round(v * 100) / 100).toString();
 const toD = (commands) =>
   commands
@@ -57,89 +58,88 @@ const toD = (commands) =>
       return 'Z';
     })
     .join('');
-const wordD = glyphs.map((g, i) => toD(g.getPath(originX[i] + wordOffsetX, baseline, size).commands)).join(' ');
-const fullW = Math.ceil(76 + (x2 - wordBox.x1));
+const WORD_X = 80;
+const baseline = 50;
+const wordD = glyphs.map((g, i) => toD(g.getPath(originX[i] + WORD_X - box.x1, baseline, size).commands)).join(' ');
+const wordWidth = Math.ceil(box.x2 - box.x1);
+const fullW = WORD_X + wordWidth;
 const fullH = 64;
-
-const markSvg = (shieldFill = ACCENT, zFill = SURFACE) => `<path d="${shield}" fill="${shieldFill}"/><path d="${z}" fill="${zFill}"/>`;
 
 const lockup = (ink) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${fullW} ${fullH}" width="${fullW}" height="${fullH}">` +
-  `<title>Zentry</title>${markSvg()}<path d="${wordD}" fill="${ink}"/></svg>\n`;
+  `<title>ZKSona</title>${markSvg()}<path d="${wordD}" fill="${ink}"/></svg>\n`;
 
 const brandDir = path.join(root, 'public/brand');
 fs.mkdirSync(brandDir, { recursive: true });
 fs.writeFileSync(path.join(brandDir, 'logo.svg'), lockup(INK));
-fs.writeFileSync(path.join(brandDir, 'logo-dark.svg'), lockup(SURFACE));
+fs.writeFileSync(path.join(brandDir, 'logo-dark.svg'), lockup(PAPER));
 
-const markFile = (bg) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"><title>Zentry</title>` +
-  (bg ? `<rect width="64" height="64" rx="14" fill="${bg}"/>` : '') +
-  `<g transform="translate(1.6 1.6) scale(0.95)">${markSvg()}</g></svg>\n`;
-fs.writeFileSync(path.join(root, 'public/favicon.svg'), markFile(null));
-fs.writeFileSync(path.join(brandDir, 'mark.svg'), markFile(null));
+const markFile = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"><title>ZKSona</title>${markSvg()}</svg>\n`;
+fs.writeFileSync(path.join(root, 'public/favicon.svg'), markFile);
+fs.writeFileSync(path.join(brandDir, 'mark.svg'), markFile);
 
 // PNG exports: 500x500, lockup centred with ~12% padding
+const render = (svg, width) => new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render().asPng();
 const pad = 500 * 0.12;
-const inner = 500 - pad * 2;
-const scale = inner / fullW;
+const scale = (500 - pad * 2) / fullW;
 const png = (bg) => {
   const ty = (500 - fullH * scale) / 2;
-  const svg =
+  return render(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">` +
-    (bg ? `<rect width="500" height="500" fill="${bg}"/>` : '') +
-    `<g transform="translate(${pad} ${ty}) scale(${scale})">${markSvg()}<path d="${wordD}" fill="${INK}"/></g></svg>`;
-  return new Resvg(svg, { fitTo: { mode: 'width', value: 500 }, background: bg ? undefined : 'rgba(0,0,0,0)' })
-    .render()
-    .asPng();
+      (bg ? `<rect width="500" height="500" fill="${bg}"/>` : '') +
+      `<g transform="translate(${pad} ${ty}) scale(${scale})">${markSvg()}<path d="${wordD}" fill="${INK}"/></g></svg>`,
+    500,
+  );
 };
-fs.writeFileSync(path.join(brandDir, 'logo-500.png'), png(ACCENT_SOFT));
+fs.writeFileSync(path.join(brandDir, 'logo-500.png'), png(MIST));
 fs.writeFileSync(path.join(brandDir, 'logo-500-transparent.png'), png(null));
 
 // React data
 fs.writeFileSync(
   path.join(root, 'src/data/logo.ts'),
   `// Generated by scripts/build-logo.mjs. Do not edit by hand.\n` +
-    `export const LOGO = ${JSON.stringify({ width: fullW, height: fullH, shield, z, word: wordD, wordBox: { x: 76, width: Math.ceil(x2 - wordBox.x1) } }, null, 2)} as const;\n`,
+    `export const LOGO = ${JSON.stringify({ width: fullW, height: fullH, mark, word: wordD, wordBox: { x: WORD_X, width: wordWidth } }, null, 2)} as const;\n`,
 );
 console.log('logo', fullW, fullH);
 
-// ---------- Social + app icons ----------
-const fontFiles = [path.join(root, 'scripts/fonts/Outfit-Medium.ttf'), path.join(root, 'scripts/fonts/Outfit-Light.ttf')];
-const render = (svg, width) =>
-  new Resvg(svg, {
-    fitTo: { mode: 'width', value: width },
-    font: { fontFiles, loadSystemFonts: false, defaultFontFamily: 'Outfit' },
-  })
-    .render()
-    .asPng();
-
-// Open Graph / Twitter card, 1200x630
+// Open Graph / Twitter card, 1200x630: ink panel, statement in the brand face (outlined), three index cards
 {
-  const lockScale = 3;
+  const line = (text, s, x, y) => {
+    const glyphsL = [...text].map((ch) => font.charToGlyph(ch));
+    let cx = x;
+    return glyphsL
+      .map((g, i) => {
+        const d = toD(g.getPath(cx, y, s).commands);
+        const next = glyphsL[i + 1];
+        const kern = next ? font.getKerningValue(g, next) : 0;
+        cx += ((g.advanceWidth + (Number.isFinite(kern) ? kern : 0)) / font.unitsPerEm) * s - 0.03 * s;
+        return d;
+      })
+      .join(' ');
+  };
+  const card = (x, y, w, h, fill, rot) =>
+    `<g transform="rotate(${rot} ${x + w / 2} ${y + h / 2})"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${fill}"/></g>`;
   const og =
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">` +
-    `<defs><radialGradient id="g" cx="0.12" cy="0.2" r="0.9">` +
-    `<stop offset="0" stop-color="#a586ff"/><stop offset="0.45" stop-color="#e3d9ff"/><stop offset="1" stop-color="#f7f7f8"/></radialGradient></defs>` +
-    `<rect width="1200" height="630" fill="url(#g)"/>` +
-    `<g transform="translate(88 96) scale(${lockScale})">${markSvg()}<path d="${wordD}" fill="${INK}"/></g>` +
-    `<text x="92" y="410" font-family="Outfit" font-weight="300" font-size="78" fill="${INK}">Move value</text>` +
-    `<text x="92" y="496" font-family="Outfit" font-weight="300" font-size="78" fill="${INK}">without a trail.</text>` +
-    `<text x="96" y="566" font-family="Outfit" font-weight="500" font-size="26" fill="${ACCENT_DEEP}">Zero-knowledge privacy on Solana  ·  zentry-shield.xyz</text>` +
+    `<rect width="1200" height="630" fill="${INK}"/>` +
+    card(760, 150, 300, 380, SKY, 8) +
+    card(720, 120, 300, 380, MINT, -4) +
+    card(680, 100, 300, 380, ACCENT, 3) +
+    `<g transform="translate(80 80) scale(1.1)">${markSvg()}<path d="${wordD}" fill="${PAPER}"/></g>` +
+    `<path d="${line('Private', 118, 76, 380)}" fill="${PAPER}"/>` +
+    `<path d="${line('by proof.', 118, 76, 490)}" fill="${ACCENT}"/>` +
+    `<path d="${line('zksona.org', 30, 80, 566)}" fill="#999999"/>` +
     `</svg>`;
   fs.writeFileSync(path.join(root, 'public/og-image.png'), render(og, 1200));
 }
 
-// App icons: mark on the brand surface, centred with padding
-const iconSvg = (size) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="${size}" height="${size}">` +
-  `<rect width="64" height="64" fill="${ACCENT_SOFT}"/>` +
-  `<g transform="translate(8.8 8.8) scale(0.725)">${markSvg()}</g></svg>`;
+// App icons: the mark, full bleed on its own tile
 for (const [file, size] of [
   ['apple-touch-icon.png', 180],
   ['icon-192.png', 192],
   ['icon-512.png', 512],
 ]) {
-  fs.writeFileSync(path.join(root, 'public', file), render(iconSvg(size), size));
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="${size}" height="${size}"><rect width="64" height="64" fill="${ACCENT}"/>${markSvg()}</svg>`;
+  fs.writeFileSync(path.join(root, 'public', file), render(svg, size));
 }
 console.log('social + app icons');

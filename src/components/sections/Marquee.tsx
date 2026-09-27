@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { MARQUEE } from '@/data/content';
 import { loadProtocolLogos, type ProtocolLogo } from '@/data/logos';
 
 // Logo strip: the list is rendered twice and the track slides by exactly one copy (30s, linear).
@@ -35,6 +36,7 @@ export function Marquee() {
   return (
     <section className="section" id="chains" aria-label="Built on Solana">
       <div className="container marquee">
+        <p className="eyebrow marquee-label">{MARQUEE.label}</p>
         <div className="marquee-mask">
           <div className="marquee-track" ref={trackRef}>
             {items.map((l, i) => (

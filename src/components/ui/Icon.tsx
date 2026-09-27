@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-// Zentry's own line icons: 24-unit grid, 1.6 stroke, round caps.
+// ZKSona's own line icons: 24-unit grid, 1.6 stroke, round caps.
 const PATHS = {
   lock: 'M6.5 10.5h11v9.5h-11zM8.8 10.5V7.8a3.2 3.2 0 0 1 6.4 0v2.7M12 14.2v2.4',
   swirl: 'M20 8.5C17.5 5 12 4.2 8.6 6.8M4 15.5c2.5 3.5 8 4.3 11.4 1.7M17.5 12a5.5 5.5 0 0 0-8.3-4.7M6.5 12a5.5 5.5 0 0 0 8.3 4.7M12 12h.01',

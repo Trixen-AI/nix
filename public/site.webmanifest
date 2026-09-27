@@ -1,11 +1,11 @@
 {
-  "name": "Zentry",
-  "short_name": "Zentry",
+  "name": "ZKSona",
+  "short_name": "ZKSona",
   "description": "Zero-knowledge privacy infrastructure for Solana transactions.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#f98500",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },

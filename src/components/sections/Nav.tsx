@@ -78,7 +78,7 @@ export function Nav() {
   return (
     <header className={`nav${mobileOpen ? ' menu-open' : ''}`}>
       <div className="container nav-inner">
-        <a className="nav-logo" href="#top" aria-label="Zentry home">
+        <a className="nav-logo" href="#top" aria-label="ZKSona home">
           <Logo />
         </a>
 

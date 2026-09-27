@@ -19,11 +19,11 @@ export default function Exposure() {
 
   return (
     <>
-      <title>Exposure | Zentry</title>
+      <title>Exposure | ZKSona</title>
       <PageHead
-        eyebrow="/// privacy agent"
-        title="What your wallet gives away"
-        body={`Everything below is read from the last ${EXPOSURE_WINDOW} transactions on ${CLUSTER_LABEL[cluster]}, the same data any explorer or analytics firm can see.`}
+        eyebrow="#04 / privacy agent"
+        title="Read yourself like a stranger would"
+        body={`Built from the last ${EXPOSURE_WINDOW} transactions on ${CLUSTER_LABEL[cluster]}: the same public record any explorer or analytics desk reads.`}
       />
       <ScanForm
         key={scanned ?? ''}
@@ -36,7 +36,7 @@ export default function Exposure() {
       {target ? (
         <Report key={`${cluster}:${target}`} target={target} isOwn={isOwn} />
       ) : (
-        <ConnectPrompt what="Connect to scan your own wallet, or paste any address above to see what it exposes." />
+        <ConnectPrompt what="Connect to scan your own wallet, or paste any address above to see how much it gives away." />
       )}
     </>
   );

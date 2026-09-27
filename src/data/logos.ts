@@ -5,7 +5,7 @@ const files = import.meta.glob<string>('../assets/chains/*.svg', { query: '?raw'
 
 type LogoDef = { key: string; name: string; height: number };
 
-// Zentry runs on Solana only, so the strip repeats the Solana mark.
+// ZKSona runs on Solana only, so the strip repeats the Solana mark.
 const ORDER: LogoDef[] = [{ key: 'solana', name: 'Solana', height: 30 }];
 
 export type ProtocolLogo = LogoDef & { svg: string };

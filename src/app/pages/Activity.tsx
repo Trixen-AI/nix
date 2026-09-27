@@ -21,11 +21,11 @@ export default function Activity() {
   const { address, cluster } = useWallet();
   return (
     <>
-      <title>Activity | Zentry</title>
+      <title>Activity | ZKSona</title>
       <PageHead
-        eyebrow="/// observe"
-        title="Activity"
-        body={`Your public transaction history on ${CLUSTER_LABEL[cluster]}, with the details that link it back to you flagged.`}
+        eyebrow="#05 / activity"
+        title="Your public history"
+        body={`Every transaction ${CLUSTER_LABEL[cluster]} keeps on record for this wallet, with the details that tie it back to you marked.`}
       />
       {address ? <ActivityBody address={address} /> : <ConnectPrompt what="Connect to read your transaction history." />}
     </>

@@ -1,39 +1,42 @@
 :root {
-  /* Palette: violet on white, near-black focal panels (after arcium.com) */
-  --ink: #0a0a0c;
-  --ink-2: #1a1a1f;
+  /* Palette: paper and mist, ink sections, one orange accent, mint and sky as secondary (after zats.market) */
+  --ink: #0a0a0b;
+  --ink-2: #232323;
+  --graphite: #323232;
   --white: #ffffff;
-  --accent: #6d45ff;
-  --accent-hover: #5a33e6;
-  --accent-medium: #a586ff;
-  --accent-light: #c7b3ff;
-  --accent-soft: #f1ecff;
-  --accent-deep: #5a33e6;
-  --fog: #ececf1;
-  --card-grey: #f2f2f3;
-  --soft-grey: #f7f7f8;
-  --medium-grey: #dededf;
-  --dark-grey: #b4b4bd;
-  --line-grey: #e6e6e8;
-  --pagination-active: #82828c;
-  --ink-64: rgba(10, 10, 12, 0.64);
-  --ink-36: rgba(10, 10, 12, 0.36);
+  --accent: #f98500;
+  --accent-hover: #e07600;
+  --accent-medium: #ffb35c;
+  --accent-light: #ffd6a8;
+  --accent-soft: #fff3e5;
+  --accent-deep: #a65500;
+  --mint: #71cfa3;
+  --sky: #bcefff;
+  --fog: #e6f8ff;
+  --card-grey: #f3f3f3;
+  --soft-grey: #f7f7f7;
+  --medium-grey: #e2e2e2;
+  --dark-grey: #999999;
+  --line-grey: #e8e8e8;
+  --pagination-active: #6b6b6b;
+  --ink-64: rgba(10, 10, 11, 0.64);
+  --ink-36: rgba(10, 10, 11, 0.36);
   --white-40: rgba(255, 255, 255, 0.4);
-  /* Status (dashboard), from the same reference palette */
+  /* Status (dashboard) */
   --ok: #1f9d6b;
-  --ok-soft: #e6f5ee;
+  --ok-soft: #e3f6ec;
   --warn: #c9760a;
   --warn-soft: #fcf1e2;
   --danger: #d83a3a;
   --danger-soft: #fbe8e8;
 
-  --frame-gradient: linear-gradient(315deg, #c7b3ff, #f1ecff 41%, #f2f2f3);
-  --cta-gradient: linear-gradient(100deg, #f2f2f3 0%, #f7f7f8 55%, #ffffff 100%);
-  --text-gradient: linear-gradient(90deg, #e3d9ff 0%, #a586ff 34%, #f7f7f8 76%);
+  --frame-gradient: linear-gradient(315deg, #ffd6a8, #fff3e5 41%, #f3f3f3);
+  --cta-gradient: linear-gradient(100deg, #f3f3f3 0%, #f7f7f7 55%, #ffffff 100%);
+  --text-gradient: linear-gradient(90deg, #ffd6a8 0%, #f98500 38%, #bcefff 80%);
 
   /* Type */
-  --font-sans: 'Outfit Variable', 'Outfit', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-sans: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Martian Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --h1: 72px;
   --h2: 48px;
   --h3: 36px;
@@ -56,7 +59,7 @@
   --space-big: 64px;
   --space-xbig: 128px;
   --space-default: 160px;
-  --radius: 10px;
+  --radius: 16px;
   --radius-tiny: 4px;
   --radius-round: 999px;
 

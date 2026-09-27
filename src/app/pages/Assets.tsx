@@ -9,11 +9,11 @@ export default function Assets() {
   const { address, cluster } = useWallet();
   return (
     <>
-      <title>Assets | Zentry</title>
+      <title>Assets | ZKSona</title>
       <PageHead
-        eyebrow="/// observe"
-        title="Assets"
-        body={`Everything this wallet holds on ${CLUSTER_LABEL[cluster]}. All of it is public until you move it through Zentry.`}
+        eyebrow="#06 / assets"
+        title="What you hold, in plain view"
+        body={`Every balance this wallet shows on ${CLUSTER_LABEL[cluster]}. Anyone with the address can see this list.`}
       />
       {address ? <AssetsBody address={address} /> : <ConnectPrompt what="Connect to see your SOL and SPL token balances." />}
     </>

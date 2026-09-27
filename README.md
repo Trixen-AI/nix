@@ -1,8 +1,8 @@
-# Zentry
+# ZKSona
 
-Landing page for Zentry, zero-knowledge privacy infrastructure for Solana. Live domain: https://zentry-shield.xyz
+Landing page for ZKSona, zero-knowledge privacy infrastructure for Solana. Live domain: https://zksona.org
 
-Built with Vite, React 19 and TypeScript. Carousels use Swiper 8, and the shield scene uses three.js (loaded lazily).
+Built with Vite, React 19 and TypeScript. The walkthrough carousel uses Swiper 8; the proof scene is a library-free Canvas 2D animation (`src/components/scene/ProofScene.tsx`). Fonts: Bricolage Grotesque and Martian Mono.
 The product dashboard lives at `/app` (React Router, Reown AppKit for Solana wallets, TanStack Query for live data).
 
 ## Run locally
@@ -20,7 +20,7 @@ Copy `.env.example` to `.env.local` and fill it in (`.env.local` is gitignored; 
 
 | Variable | Required | What it does |
 |---|---|---|
-| `VITE_REOWN_PROJECT_ID` | Yes | Reown (WalletConnect) project ID from cloud.reown.com. Add `zentry-shield.xyz` and `localhost` to the project's allowed domains. Without it the dashboard shows a setup screen. |
+| `VITE_REOWN_PROJECT_ID` | Yes | Reown (WalletConnect) project ID from cloud.reown.com. Add `zksona.org` and `localhost` to the project's allowed domains. Without it the dashboard shows a setup screen. |
 | `VITE_SOLANA_RPC_URL` | Recommended | Dedicated mainnet RPC (Helius, Triton, QuickNode...). Without it, reads go through Reown's shared RPC, which often returns only recent transaction history. |
 | `VITE_SOLANA_DEVNET_RPC_URL` | No | Same, for devnet. |
 
@@ -34,7 +34,7 @@ Copy `.env.example` to `.env.local` and fill it in (`.env.local` is gitignored; 
 | Assets | `/app/assets` | SOL and SPL balances, Jupiter prices |
 | Network | `/app/network` | Live TPS, fees, crowd size, program status (works without a wallet) |
 
-**Approve** asks the wallet to sign a plain-text message describing the request (`signMessage`, no transaction). Signed approvals are kept in the browser per wallet and cluster (`src/app/lib/approvals.ts`) and listed under Approvals. No funds move: executing private transfers and vault locks needs the Zentry program and relayers, which are not deployed yet.
+**Approve** asks the wallet to sign a plain-text message describing the request (`signMessage`, no transaction). Signed approvals are kept in the browser per wallet and cluster (`src/app/lib/approvals.ts`) and listed under Approvals. No funds move: executing private transfers and vault locks needs the ZKSona program and relayers, which are not deployed yet.
 
 ## Where things live
 
@@ -73,11 +73,11 @@ It writes `public/brand/*`, `public/favicon.svg`, `public/og-image.png`, the app
    | `VITE_REOWN_PROJECT_ID` | Your project ID from cloud.reown.com | Required. Without it the dashboard shows a setup screen. |
    | `VITE_SOLANA_RPC_URL` | A mainnet RPC URL, e.g. `https://mainnet.helius-rpc.com/?api-key=...` | Recommended. Full transaction history for Activity and Exposure. |
    | `VITE_SOLANA_DEVNET_RPC_URL` | A devnet RPC URL | Optional. Leave unset to use Reown's devnet RPC. |
-   | `VITE_SITE_URL` | `https://zentry-shield.xyz` | Optional. Already set in the committed `.env`. |
+   | `VITE_SITE_URL` | `https://zksona.org` | Optional. Already set in the committed `.env`. |
 
-   `VITE_*` values are built into the browser bundle, so they are visible to visitors. Lock them down at the provider: allow `zentry-shield.xyz` (and `localhost`) in the Reown project, and restrict the RPC key to the same domains in Helius.
+   `VITE_*` values are built into the browser bundle, so they are visible to visitors. Lock them down at the provider: allow `zksona.org` (and `localhost`) in the Reown project, and restrict the RPC key to the same domains in Helius.
 3. Deploy. Changing an environment variable needs a redeploy to take effect.
-4. Under **Settings → Domains**, add `zentry-shield.xyz` and `www.zentry-shield.xyz`, then set the DNS records Vercel shows (A record for the apex, CNAME for `www`).
+4. Under **Settings → Domains**, add `zksona.org` and `www.zksona.org`, then set the DNS records Vercel shows (A record for the apex, CNAME for `www`).
 
 ## Deploy (Netlify)
 
@@ -86,4 +86,4 @@ It writes `public/brand/*`, `public/favicon.svg`, `public/og-image.png`, the app
 1. In Netlify, choose **Add new site → Import an existing project** and pick this GitHub repo.
 2. Under **Site configuration → Environment variables**, add `VITE_REOWN_PROJECT_ID` (and `VITE_SOLANA_RPC_URL` if you have one).
 3. Keep the detected settings and deploy.
-4. Under **Domain management**, add `zentry-shield.xyz` (and `www.zentry-shield.xyz`), then point the domain's DNS at Netlify.
+4. Under **Domain management**, add `zksona.org` (and `www.zksona.org`), then point the domain's DNS at Netlify.

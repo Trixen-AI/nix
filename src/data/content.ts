@@ -24,8 +24,8 @@ export const NAV_PROTOCOL: { title: string; links: NavLink[] }[] = [
     title: 'Protect',
     links: [
       { label: 'Shield Vault', href: VAULT_URL, icon: 'shield' },
-      { label: 'Flash Obfuscation', href: '#modules', icon: 'bolt' },
-      { label: 'Privacy Agent', href: EXPOSURE_URL, icon: 'bot' },
+      { label: 'Flash batching', href: '#modules', icon: 'bolt' },
+      { label: 'Privacy agent', href: EXPOSURE_URL, icon: 'bot' },
     ],
   },
   {
@@ -47,98 +47,102 @@ export const NAV_RESOURCES: NavLink[] = [
   { label: 'Documentation', href: '#docs', external: true },
   { label: 'Whitepaper', href: '#whitepaper', external: true },
   { label: 'API', href: '#api' },
-  { label: 'zentry CLI', href: '#cli' },
+  { label: 'zksona CLI', href: '#cli' },
   { label: 'Bug bounty', href: '#bounty' },
 ];
 
 export const HERO = {
-  eyebrow: '/// quiet by default',
-  title: ['Move value', 'without a trail.'],
-  body: 'Zentry is zero-knowledge privacy infrastructure for Solana. Shield, route and settle SOL and SPL token transfers so the chain can verify them, and nobody else can read them.',
+  eyebrow: '#00 / private transfers on Solana',
+  title: ['Your wallet,', 'off the record.'],
+  body: 'ZKSona sends SOL and SPL tokens with a zero-knowledge proof instead of a public trail. The network checks the math. Nobody reads the story.',
   stats: [
-    { label: 'Volume shielded', value: '$86.40', tip: 'Average fee $0.12 per private transaction' },
-    { label: 'Private transactions', value: '42', tip: 'Each one under $100' },
+    { label: 'Volume shielded', value: '$86.40', tip: 'Average fee: $0.12 per transfer' },
+    { label: 'Private transfers', value: '42', tip: 'Every one under $100' },
   ],
-  cta: 'Initialize TX',
+  cta: 'Pick a tier',
 };
 
 export const INTRO = {
-  title: 'A public ledger should not be a public diary',
-  body: 'Every transfer on a transparent chain tells the world who paid whom, how much and when. Zentry keeps the proof and drops the story: a zk-SNARK shows the transaction is valid, relayers break the link between wallets, and what lands onchain says nothing about you.',
+  eyebrow: '#03 / how it stays quiet',
+  title: 'The chain only needs the proof',
+  body: 'Public ledgers keep who paid whom, how much and when, for good. ZKSona hands the network a zk-SNARK that says the transfer is valid and keeps everything else with you. Relayers carry it across, so no line runs from your wallet to theirs.',
 };
 
 export const TIERS = {
-  title: 'Pick how quiet you want to be',
-  body: 'Every private transaction runs on one of three tiers. More hops, more cover.',
+  eyebrow: '#05 / tiers',
+  title: 'Three levels of quiet',
+  body: 'Choose per transfer. Each step up adds hops, a proof or a random wait.',
   cards: [
     {
       label: 'Standard',
-      title: '2-hop mixing',
-      body: 'Two relayer hops between origin and destination. Fast, cheap and enough to break a direct link.',
+      title: 'Break the direct link',
+      body: 'Two independent relayers between you and the recipient. Quick, low cost, and the direct link is gone.',
       mock: { hops: 2, amount: '25.00', time: '~40s', zk: false, delay: false },
     },
     {
       label: 'Enhanced',
-      title: '5-hop + zk',
-      body: 'Five hops plus a zero-knowledge proof, so validity is checked without revealing sender, receiver or amount.',
+      title: 'Hide who and how much',
+      body: 'Five relayers plus a zero-knowledge proof, so sender, receiver and amount never appear together.',
       mock: { hops: 5, amount: '60.00', time: '~3 min', zk: true, delay: false },
     },
     {
       label: 'Ghost',
-      title: '10-hop + time',
-      body: 'Ten hops, a proof and a randomised delay, so timing cannot be used to match what went in with what came out.',
+      title: 'Beat timing analysis',
+      body: 'Ten relayers, a proof and a random wait, so even timing cannot tie what left to what arrived.',
       mock: { hops: 10, amount: '95.00', time: 'randomised', zk: true, delay: true },
     },
   ],
 };
 
 export const MODULES = {
-  title: 'Core systems: six layers between your wallet and the watchers',
-  body: 'Each layer removes one thing an observer could use. Run them alone or let Zentry stack them for you.',
+  eyebrow: '#04 / modules',
+  title: 'Six moving parts, one quiet transfer',
+  body: 'Each part removes one clue an observer could use. Use one, or let ZKSona stack all six.',
   cards: [
     {
       n: '001',
       icon: 'lock' as IconName,
-      title: 'Zero-knowledge proofs',
-      body: 'zk-SNARK circuits prove a transfer is valid without exposing sender, receiver or amount.',
+      title: 'Proofs, not receipts',
+      body: 'zk-SNARK circuits confirm a transfer is valid while sender, receiver and amount stay sealed.',
     },
     {
       n: '002',
       icon: 'swirl' as IconName,
-      title: 'Cyclone Mixer',
-      body: 'Multi-hop routing through independent relayers cuts the onchain line between deposit and withdrawal.',
+      title: 'Relay mixer',
+      body: 'Transfers hop through independent relayers, so deposits and withdrawals never share a visible line.',
     },
     {
       n: '003',
       icon: 'shield' as IconName,
       title: 'Shield Vault',
-      body: 'Time-locked, encrypted storage for assets you are not moving yet, built on post-quantum primitives.',
+      body: 'Park assets behind a time lock you set. The balance stays sealed until the date you picked.',
     },
     {
       n: '004',
       icon: 'bridge' as IconName,
-      title: 'Solana bridge',
-      body: 'Bring assets onto Solana privately. They land in a shielded pool, not a public wallet, with no public hop in between.',
+      title: 'Inbound bridge',
+      body: 'Bring assets onto Solana straight into a shielded pool instead of a public wallet.',
     },
     {
       n: '005',
       icon: 'bot' as IconName,
-      title: 'AI privacy agent',
-      body: 'Watches relayer load and network conditions, then picks the route with the largest crowd to blend into.',
+      title: 'Privacy agent',
+      body: 'Reads your own exposure and the live network, then suggests a tier and a good moment to send.',
     },
     {
       n: '006',
       icon: 'bolt' as IconName,
-      title: 'Flash obfuscation',
-      body: 'Sub-second batching with MEV protection, so bots cannot front-run a transaction they cannot read.',
+      title: 'Flash batching',
+      body: 'Transfers settle in tight batches with MEV protection, so bots cannot front-run what they cannot read.',
     },
   ],
 };
 
 export const SPLIT = {
   problem: {
-    title: 'Transparent by default means exposed by default',
-    body: 'Block explorers, analytics firms and bots index every address you touch. One reused wallet can link your salary, your savings and your spending in minutes. Zentry replaces what they read with commitments and proofs, so the ledger still balances and your history stays yours.',
+    eyebrow: '#02 / the problem',
+    title: 'Every address is a paper trail',
+    body: 'Explorers, analytics desks and trading bots index each wallet you touch. One reused address can connect your salary, savings and spending in an afternoon. ZKSona swaps what they read for commitments and proofs: the books still balance, the story stays with you.',
     rows: [
       { a: ['From', '7xKq...9fPd'], c: ['Amount', '18 USDC'] },
       { a: ['To', 'Dh3v...Qm2A'], c: ['Token', 'USDC'] },
@@ -148,82 +152,90 @@ export const SPLIT = {
     ],
   },
   control: {
-    title: 'Your keys, your proofs, your call',
-    body: 'Zentry never takes custody. Proofs are generated on your device, relayers only see encrypted payloads, and the circuits and contracts are open for anyone to audit. Privacy is a human right, so the tools that protect it should be verifiable too.',
+    eyebrow: '#02 / custody',
+    title: 'Nobody holds your keys but you',
+    body: 'ZKSona never takes custody. Proofs are built on your device, relayers only carry sealed payloads, and every circuit and contract is open to audit. If a tool protects your privacy, you should be able to check it.',
   },
 };
 
 export const STORIES = {
-  title: 'Inside the system, module by module, from first send to final stats',
+  eyebrow: '#06 / walkthrough',
+  title: 'One module at a time',
   body: 'What each part does, and the command that starts it.',
   slides: [
     {
       tag: 'Private TX',
       href: APP_URL,
-      title: 'Private TX - send without a paper trail',
-      body: 'Enter origin, destination and amount, choose a tier, sign once. The proof, the hops and the settlement all happen behind one button.',
-      prompt: '$ zentry send --to 7xKq... --amount 25 --tier enhanced',
-      tint: 'violet',
+      title: 'Private TX: one signature, no trail',
+      body: 'Pick the asset, the recipient and a tier, then sign once. Proof, hops and settlement run behind that single approval.',
+      prompt: '$ zksona send --to 7xKq... --amount 25 --tier enhanced',
+      tint: 'orange',
     },
     {
       tag: 'Mixer',
       href: `${APP_URL}?tier=ghost`,
-      title: 'Cyclone Mixer - many hops, no line',
-      body: 'Deposits join a shared pool, relayers pass them through independent hops, and withdrawals leave with no link back to the source.',
-      prompt: '$ zentry mix --hops 5',
-      tint: 'fog',
+      title: 'Relay mixer: many hops, no line',
+      body: 'Deposits join a shared pool, relayers pass them along, and withdrawals leave with nothing pointing back.',
+      prompt: '$ zksona mix --hops 5',
+      tint: 'sky',
     },
     {
       tag: 'Shield Vault',
       href: VAULT_URL,
-      title: 'Shield Vault - park assets out of sight',
-      body: 'Lock assets in an encrypted vault with a release time you choose. Balances stay hidden until you decide to move them.',
-      prompt: '$ zentry vault lock --until 2026-12-31',
-      tint: 'violet',
+      title: 'Shield Vault: out of sight until you say so',
+      body: 'Lock assets with a release date. The balance stays sealed until then, and only your key opens it.',
+      prompt: '$ zksona vault lock --until 2026-12-31',
+      tint: 'mint',
     },
     {
       tag: 'Bridge',
       href: NETWORK_URL,
-      title: 'Bridge - arrive on Solana quietly',
-      body: 'Bring assets onto Solana without a traceable hop on the way in. They land in a shielded pool, ready to move privately.',
-      prompt: '$ zentry bridge --to solana --asset USDC',
-      tint: 'fog',
+      title: 'Inbound bridge: arrive already private',
+      body: 'Assets coming onto Solana land in a shielded pool, not a public wallet, so the trail starts cold.',
+      prompt: '$ zksona bridge --to solana --asset USDC',
+      tint: 'orange',
     },
     {
-      tag: 'AI Agent',
+      tag: 'Privacy agent',
       href: EXPOSURE_URL,
-      title: 'AI privacy agent - routing that adapts',
-      body: 'Ask in chat for the most private route right now. The agent reads network conditions and suggests a tier and a time window.',
-      prompt: '"What is the quietest route for 80 USDC tonight?"',
-      tint: 'violet',
+      title: 'Privacy agent: advice from your own data',
+      body: 'It scores what your history gives away and checks how busy the network is, then suggests a tier and a time.',
+      prompt: '$ zksona agent --scan my-wallet',
+      tint: 'sky',
     },
     {
-      tag: 'Analytics',
+      tag: 'Network',
       href: NETWORK_URL,
-      title: 'Analytics - see the network, not the people',
-      body: 'Pool sizes, relayer health and anonymity-set depth, all aggregated. Nothing on the dashboard points back to a wallet.',
-      prompt: '$ zentry stats --pool sol',
-      tint: 'fog',
+      title: 'Network watch: see the crowd, not the people',
+      body: 'Live load, fees and crowd size for Solana, so you know when a transfer has the most company.',
+      prompt: '$ zksona stats --network mainnet',
+      tint: 'mint',
     },
   ],
 };
 
 export const DEV = {
-  titleAccent: 'Go quiet from the terminal',
-  titleRest: 'in one command',
-  body: 'The zentry CLI opens a stealth session on Solana, loads the circuits and connects you to the relayer network. Script it, pipe it, ship it.',
-  cardTitle: 'zentry CLI - stealth session',
+  eyebrow: '#07 / cli',
+  titleAccent: 'Stay quiet from the terminal',
+  titleRest: 'with one command',
+  body: 'The zksona CLI opens a sealed session on Solana, loads the circuits and joins the relayer network. Script it, pipe it, schedule it.',
+  cardTitle: 'zksona CLI · sealed session',
   docs: 'Docs',
 };
 
+export const MARQUEE = {
+  label: '#01 / settles on Solana',
+};
+
 export const CTA = {
-  title: 'Privacy is a human right. Tell us what you want to build with it.',
+  eyebrow: '#08 / contact',
+  title: 'Building something that should stay private? Tell us about it.',
   button: 'Send message',
   form: {
     titleLabel: 'Title',
     titlePlaceholder: 'Integration, audit, partnership...',
     messageLabel: 'Message',
-    messagePlaceholder: 'A few lines about your project',
+    messagePlaceholder: 'A few lines about what you are building',
   },
   sent: 'Message noted. This preview does not send anything yet.',
 };
@@ -251,7 +263,7 @@ export const FOOTER: FooterGroup[][] = [
         { label: 'Bridge', href: '#modules' },
         { label: 'Exposure scan', href: EXPOSURE_URL },
         { label: 'Activity', href: '/app/activity' },
-        { label: 'Flash Obfuscation', href: '#modules' },
+        { label: 'Flash batching', href: '#modules' },
       ],
     },
   ],

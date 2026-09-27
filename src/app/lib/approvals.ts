@@ -18,7 +18,7 @@ export type Approval = {
   createdAt: number;
 };
 
-const KEY = 'zentry.approvals.v1';
+const KEY = 'zksona.approvals.v1';
 const MAX = 50;
 
 function readAll(): Approval[] {

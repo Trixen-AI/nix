@@ -14,18 +14,18 @@ export default function Overview() {
   const { address, cluster } = useWallet();
   return (
     <>
-      <title>Overview | Zentry</title>
+      <title>Overview | ZKSona</title>
       <PageHead
-        eyebrow="/// dashboard"
-        title="Overview"
-        body={`Your wallet as the chain sees it on ${CLUSTER_LABEL[cluster]}, and what Zentry would change.`}
+        eyebrow="#01 / overview"
+        title="Your wallet, at a glance"
+        body={`What ${CLUSTER_LABEL[cluster]} shows about you right now, and where to go quiet first.`}
         actions={
           <Link className="btn btn-dark" to="/app/private-tx">
             New private TX
           </Link>
         }
       />
-      {address ? <Connected address={address} /> : <ConnectPrompt what="Connect to see your balances, what your history exposes and the tier the privacy agent suggests." />}
+      {address ? <Connected address={address} /> : <ConnectPrompt what="Connect to see your balance, your exposure score and the tier the privacy agent picks for you." />}
       <NetworkStrip />
     </>
   );

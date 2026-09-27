@@ -1,6 +1,5 @@
 import { Icon } from '@/components/ui/Icon';
 import { SPLIT } from '@/data/content';
-import { LOGO } from '@/data/logo';
 
 const FOCUS = 2;
 
@@ -36,65 +35,68 @@ function IntentPanel() {
   );
 }
 
-// Original artwork: a wallet node whose path splits across relayer hops and exits as a proof.
-const HOPS: [number, number][] = [
-  [150, 90],
-  [150, 180],
-  [150, 270],
-  [250, 60],
-  [250, 150],
-  [250, 225],
-  [250, 300],
-  [350, 110],
-  [350, 250],
-];
-const LINKS: [number, number][] = [
-  [0, 3],
-  [0, 4],
-  [1, 4],
-  [1, 5],
-  [2, 5],
-  [2, 6],
-  [3, 7],
-  [4, 7],
-  [5, 8],
-  [6, 8],
-];
-const LIT = new Set([1, 4, 7]);
-const LIT_C = '#8a63ff';
-const DIM = '#2a2733';
+// "Nobody holds your keys but you": the key stays lit inside your device; relayers only ever
+// carry sealed payloads, and what reaches the chain is the proof. Fills only, on the ink panel.
+const INK = '#0a0a0b';
+const PANEL = '#232323';
+const ORANGE = '#f98500';
+const SKY = '#bcefff';
+const SKY_DEEP = '#8fd6ee';
+const MINT = '#71cfa3';
+const DIM = 'rgba(255, 255, 255, 0.5)';
+const MONO = 'Martian Mono Variable, monospace';
+const RELAYERS = [225, 290, 355];
 
-const curve = (a: [number, number], b: [number, number]) =>
-  `M${a[0]} ${a[1]} C${a[0] + 50} ${a[1]} ${b[0] - 50} ${b[1]} ${b[0]} ${b[1]}`;
+function Relayer({ cx, n }: { cx: number; n: number }) {
+  const ex = cx - 15;
+  const ey = 175;
+  return (
+    <g>
+      <rect x={cx - 24} y={153} width={48} height={64} rx={16} fill={PANEL} />
+      <rect x={ex} y={ey} width={30} height={20} rx={3} fill={SKY} />
+      <path d={`M${ex} ${ey} L${cx} ${ey + 11} L${ex + 30} ${ey} Z`} fill={SKY_DEEP} />
+      <circle cx={cx} cy={ey + 11} r={3.5} fill={MINT} />
+      <text x={cx} y={240} textAnchor="middle" fontFamily={MONO} fontSize="10" fill={DIM}>
+        R{n}
+      </text>
+    </g>
+  );
+}
 
-function RelayArt() {
+function KeysArt() {
   return (
     <div className="split-art left approve-art" aria-hidden="true">
       <svg viewBox="0 0 460 360" fill="none">
-        {[0, 1, 2].map((i) => (
-          <path key={`in${i}`} d={curve([74, 180], HOPS[i])} stroke={i === 1 ? LIT_C : DIM} strokeWidth={i === 1 ? 2.2 : 1.6} />
+        <line x1="170" y1="185" x2="398" y2="185" stroke="#3a3a3c" strokeWidth="1.2" strokeDasharray="4 6" />
+        <text x="290" y="128" textAnchor="middle" fontFamily={MONO} fontSize="10" fill={DIM}>
+          SEALED PAYLOADS ONLY
+        </text>
+
+        {/* your device, with the key inside */}
+        <rect x="40" y="90" width="130" height="190" rx="22" fill={PANEL} />
+        <rect x="52" y="104" width="106" height="162" rx="14" fill={INK} />
+        <rect x="90" y="111" width="30" height="5" rx="2.5" fill={PANEL} />
+        <circle cx="105" cy="172" r="44" fill={ORANGE} opacity="0.16" />
+        <circle cx="105" cy="150" r="16" fill={ORANGE} />
+        <circle cx="105" cy="150" r="6" fill={INK} />
+        <rect x="101" y="162" width="8" height="48" rx="3" fill={ORANGE} />
+        <rect x="108" y="192" width="11" height="6" rx="2" fill={ORANGE} />
+        <rect x="108" y="202" width="8" height="5" rx="2" fill={ORANGE} />
+        <text x="105" y="305" textAnchor="middle" fontFamily={MONO} fontSize="10" fill={DIM}>
+          YOUR DEVICE
+        </text>
+
+        {RELAYERS.map((cx, i) => (
+          <Relayer cx={cx} n={i + 1} key={cx} />
         ))}
-        {LINKS.map(([a, b]) => {
-          const lit = LIT.has(a) && LIT.has(b);
-          return <path key={`${a}-${b}`} d={curve(HOPS[a], HOPS[b])} stroke={lit ? LIT_C : DIM} strokeWidth={lit ? 2.2 : 1.6} />;
-        })}
-        {[7, 8].map((i) => (
-          <path key={`out${i}`} d={curve(HOPS[i], [396, 180])} stroke={i === 7 ? LIT_C : DIM} strokeWidth={i === 7 ? 2.2 : 1.6} />
-        ))}
-        {HOPS.map(([x, y], i) => (
-          <g key={i}>
-            <circle cx={x} cy={y} r="13" fill="#141318" stroke={LIT.has(i) ? LIT_C : '#34313f'} strokeWidth="1.6" />
-            <circle cx={x} cy={y} r="3" fill={LIT.has(i) ? LIT_C : '#4a4756'} />
-          </g>
-        ))}
-        <rect x="26" y="156" width="48" height="48" rx="10" fill="#f1ecff" />
-        <g transform="translate(32.5 161.8) scale(0.545)">
-          <path d={LOGO.shield} fill="#6d45ff" />
-          <path d={LOGO.z} fill="#ffffff" />
-        </g>
-        <rect x="396" y="160" width="46" height="40" rx="8" fill="#6d45ff" />
-        <text x="419" y="185" textAnchor="middle" fontFamily="JetBrains Mono Variable, monospace" fontSize="13" fontWeight="600" fill="#ffffff">
+
+        {/* what the chain receives */}
+        <rect x="398" y="160" width="48" height="50" rx="14" fill={MINT} />
+        <text x="422" y="190" textAnchor="middle" fontFamily={MONO} fontSize="12" fontWeight="600" fill={INK}>
           zk
+        </text>
+        <text x="422" y="240" textAnchor="middle" fontFamily={MONO} fontSize="10" fill={DIM}>
+          PROOF
         </text>
       </svg>
     </div>
@@ -108,17 +110,23 @@ export function Split() {
         <div className="split">
           <div className="split-text">
             <div className="split-text-inner">
-              <h3 className="h3">{SPLIT.problem.title}</h3>
+              <div className="stack">
+                <p className="eyebrow">{SPLIT.problem.eyebrow}</p>
+                <h3 className="h3">{SPLIT.problem.title}</h3>
+              </div>
               <p className="p muted">{SPLIT.problem.body}</p>
             </div>
           </div>
           <IntentPanel />
         </div>
         <div className="split reverse" id="security">
-          <RelayArt />
+          <KeysArt />
           <div className="split-text dark">
             <div className="split-text-inner">
-              <h3 className="h3 on-dark">{SPLIT.control.title}</h3>
+              <div className="stack">
+                <p className="eyebrow on-dark-dim">{SPLIT.control.eyebrow}</p>
+                <h3 className="h3 on-dark">{SPLIT.control.title}</h3>
+              </div>
               <p className="p on-dark">{SPLIT.control.body}</p>
             </div>
           </div>

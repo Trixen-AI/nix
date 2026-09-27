@@ -6,10 +6,12 @@ import { SiteLink } from '@/components/ui/SiteLink';
 import { STORIES } from '@/data/content';
 
 const TINTS: Record<string, string> = {
-  violet:
-    'radial-gradient(65% 90% at 12% 70%, #a586ff 0%, rgba(165,134,255,0) 70%), radial-gradient(40% 60% at 30% 95%, #d9ccff 0%, rgba(217,204,255,0) 70%), linear-gradient(120deg, #f1ecff 0%, #fbfaff 50%, #f0f0f4 100%)',
-  fog:
-    'radial-gradient(60% 90% at 15% 65%, #d6d6e0 0%, rgba(214,214,224,0) 70%), radial-gradient(45% 60% at 85% 20%, #e3d9ff 0%, rgba(227,217,255,0) 70%), linear-gradient(120deg, #f0f0f4 0%, #fbfbfd 55%, #f3f0fb 100%)',
+  orange:
+    'radial-gradient(65% 90% at 12% 70%, #f98500 0%, rgba(249,133,0,0) 70%), radial-gradient(40% 60% at 30% 95%, #ffd6a8 0%, rgba(255,214,168,0) 70%), linear-gradient(120deg, #fff3e5 0%, #ffffff 50%, #f3f3f3 100%)',
+  sky:
+    'radial-gradient(60% 90% at 15% 65%, #bcefff 0%, rgba(188,239,255,0) 70%), radial-gradient(45% 60% at 85% 20%, #ffd6a8 0%, rgba(255,214,168,0) 70%), linear-gradient(120deg, #e6f8ff 0%, #ffffff 55%, #f3f3f3 100%)',
+  mint:
+    'radial-gradient(60% 90% at 15% 65%, #71cfa3 0%, rgba(113,207,163,0) 70%), radial-gradient(45% 60% at 85% 20%, #bcefff 0%, rgba(188,239,255,0) 70%), linear-gradient(120deg, #e3f6ec 0%, #ffffff 55%, #f3f3f3 100%)',
 };
 
 // Reference: loop, one slide per view, pill pagination and round arrows.
@@ -24,6 +26,7 @@ export function Stories() {
     <section className="section" id="prompts">
       <div className="container stories">
         <div className="stories-head">
+          <p className="eyebrow">{STORIES.eyebrow}</p>
           <h2 className="h2">{STORIES.title}</h2>
           <p className="p">{STORIES.body}</p>
         </div>

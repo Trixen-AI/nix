@@ -16,12 +16,12 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <Intro />
-        <Tiers />
-        <Modules />
-        <Split />
-        <Stories />
         <Marquee />
+        <Split />
+        <Intro />
+        <Modules />
+        <Tiers />
+        <Stories />
         <Developers />
         <Cta />
       </main>

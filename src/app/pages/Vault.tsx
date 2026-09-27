@@ -21,13 +21,13 @@ export default function Vault() {
   const { address, cluster } = useWallet();
   return (
     <>
-      <title>Shield Vault | Zentry</title>
+      <title>Shield Vault | ZKSona</title>
       <PageHead
-        eyebrow="/// protect"
-        title="Shield Vault"
-        body="Lock assets you are not moving yet. Balances stay hidden until the release date you choose, and only your key can release them."
+        eyebrow="#03 / shield vault"
+        title="Park it out of sight"
+        body="Put assets you are not using behind a release date. The balance stays sealed until then, and only your key opens it."
       />
-      {address ? <VaultBody key={`${cluster}:${address}`} address={address} /> : <ConnectPrompt what="Connect to lock assets from your real balances." />}
+      {address ? <VaultBody key={`${cluster}:${address}`} address={address} /> : <ConnectPrompt what="Connect to set up a lock from what you actually hold." />}
     </>
   );
 }
@@ -64,7 +64,7 @@ function VaultBody({ address }: { address: string }) {
         ['Release', `${until} (UTC), ${days} days`],
         ['Cluster', CLUSTER_LABEL[cluster]],
       ],
-      'Zentry Shield Vault lock approval',
+      'ZKSona Shield Vault lock approval',
     );
     setStatus({ state: 'signing' });
     try {

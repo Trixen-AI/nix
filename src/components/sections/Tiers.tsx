@@ -1,49 +1,61 @@
-import { Icon } from '@/components/ui/Icon';
 import { SiteLink } from '@/components/ui/SiteLink';
 import { APP_URL, TIERS } from '@/data/content';
 
-type Mock = (typeof TIERS.cards)[number]['mock'];
+type Card = (typeof TIERS.cards)[number];
 
-// Private transaction form preview, one per privacy tier.
-function TxMock({ mock, label }: { mock: Mock; label: string }) {
+const TONE: Record<string, string> = { Standard: 'mint', Enhanced: 'sky', Ghost: 'ink' };
+
+/** YOU and THEM with one dot per relayer hop between them. */
+function Route({ hops, delay }: { hops: number; delay: boolean }) {
   return (
-    <div className="mock" aria-hidden="true">
-      <div className="mock-panel">
-        <div className="mock-row">
-          <span>Origin</span>
-          <span>Destination</span>
-        </div>
-        <div className="mock-row mono">
-          <span>9vRa...E19c</span>
-          <span>••••...••••</span>
-        </div>
-        <div className="mock-divider" />
-        <div className="mock-row">
-          <span>Amount</span>
-          <span className="mock-chip">
-            <i />
-            USDC
-          </span>
-        </div>
-        <div className="mock-row">
-          <strong>{mock.amount}</strong>
-        </div>
-      </div>
-      <div className="mock-hops">
-        {Array.from({ length: 10 }, (_, i) => (
-          <span key={i} className={i < mock.hops ? 'on' : ''} />
+    <div className={`tier-route${delay ? ' is-delay' : ''}`} aria-hidden="true">
+      <span className="tier-end">YOU</span>
+      <span className="tier-hops">
+        {Array.from({ length: hops }, (_, i) => (
+          <i key={i} />
         ))}
-      </div>
-      <div className="mock-meta">
-        <span className="mock-tag">
-          <Icon name={mock.delay ? 'ghost' : mock.zk ? 'lock' : 'shield'} />
-          {label}
-        </span>
-        <span>{mock.zk ? 'zk proof' : 'no proof'}</span>
-        <span>{mock.time}</span>
-      </div>
-      <div className="mock-btn">Execute private TX</div>
+      </span>
+      <span className="tier-end">THEM</span>
     </div>
+  );
+}
+
+function TierCard({ c }: { c: Card }) {
+  const { hops, time, zk, delay, amount } = c.mock;
+  return (
+    <SiteLink className={`tier-card tone-${TONE[c.label] ?? 'mist'}`} href={`${APP_URL}?tier=${c.label.toLowerCase()}`}>
+      <div className="tier-card-top">
+        <span className="tier-chip">{c.label}</span>
+        <span className="tier-time">{time}</span>
+      </div>
+      <p className="tier-big">
+        <span className="tier-num">{hops}</span>
+        <span className="tier-unit">hops</span>
+      </p>
+      <Route hops={hops} delay={delay} />
+      <dl className="tier-specs">
+        <div>
+          <dt>Proof</dt>
+          <dd>{zk ? 'zk-SNARK' : 'None'}</dd>
+        </div>
+        <div>
+          <dt>Timing</dt>
+          <dd>{delay ? 'Random delay' : 'Direct'}</dd>
+        </div>
+        <div>
+          <dt>Example</dt>
+          <dd>{amount} USDC</dd>
+        </div>
+      </dl>
+      <div className="tier-copy">
+        <h3 className="h4">{c.title}</h3>
+        <p className="p-small">{c.body}</p>
+      </div>
+      <span className="tier-cta">
+        Use {c.label}
+        <span className="arr">→</span>
+      </span>
+    </SiteLink>
   );
 }
 
@@ -51,26 +63,17 @@ export function Tiers() {
   return (
     <section className="section" id="private-tx">
       <div className="container pb-default">
-        <div className="frame">
-          <div className="frame-title">
+        <div className="section-head">
+          <div className="section-head-title">
+            <p className="eyebrow">{TIERS.eyebrow}</p>
             <h2 className="h2 tight">{TIERS.title}</h2>
-            <p className="p muted">{TIERS.body}</p>
           </div>
-          <div className="action-cards">
-            {TIERS.cards.map((c) => (
-              <SiteLink className="glass-card" href={`${APP_URL}?tier=${c.label.toLowerCase()}`} key={c.label}>
-                <TxMock mock={c.mock} label={c.label} />
-                <div className="action-copy">
-                  <h3 className="card-label">
-                    {c.label}
-                    <span className="arr">→</span>
-                  </h3>
-                  <h4 className="h4">{c.title}</h4>
-                  <p className="p">{c.body}</p>
-                </div>
-              </SiteLink>
-            ))}
-          </div>
+          <p className="p muted section-head-body">{TIERS.body}</p>
+        </div>
+        <div className="tier-grid">
+          {TIERS.cards.map((c) => (
+            <TierCard c={c} key={c.label} />
+          ))}
         </div>
       </div>
     </section>

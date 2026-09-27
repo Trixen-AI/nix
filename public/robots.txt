@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://zentry-shield.xyz/sitemap.xml
+Sitemap: https://zksona.org/sitemap.xml

@@ -23,13 +23,13 @@ export default function PrivateTx() {
   const { address, cluster } = useWallet();
   return (
     <>
-      <title>Private TX | Zentry</title>
+      <title>Private TX | ZKSona</title>
       <PageHead
-        eyebrow="/// transact"
-        title="Private transaction"
-        body="Pick an asset, a destination and how quiet you want to be. Balances and fees below are read live from your wallet and the network."
+        eyebrow="#02 / private tx"
+        title="Send without a trail"
+        body="Choose what to send, who gets it and how quiet it should be. Balances and fees come live from your wallet and the network."
       />
-      {address ? <Composer key={`${cluster}:${address}`} address={address} /> : <ConnectPrompt what="Connect to build a private transaction from your real balances." />}
+      {address ? <Composer key={`${cluster}:${address}`} address={address} /> : <ConnectPrompt what="Connect to build a private transfer from what you actually hold." />}
     </>
   );
 }
@@ -109,7 +109,7 @@ function Composer({ address }: { address: string }) {
         ['Tier', `${tier} (${card.title})`],
         ['Cluster', CLUSTER_LABEL[cluster]],
       ],
-      'Zentry private transfer approval',
+      'ZKSona private transfer approval',
     );
     setStatus({ state: 'signing' });
     try {

@@ -17,11 +17,11 @@ export default function Network() {
 
   return (
     <>
-      <title>Network | Zentry</title>
+      <title>Network | ZKSona</title>
       <PageHead
-        eyebrow="/// network"
-        title={CLUSTER_LABEL[cluster]}
-        body="Live load and fees, refreshed every 20 seconds. More user traffic means a bigger crowd for a private transaction to hide in."
+        eyebrow="#07 / network"
+        title={`${CLUSTER_LABEL[cluster]}, live`}
+        body="Load and fees, refreshed every 20 seconds. Busier minutes mean more company for a private transfer."
       />
       {isLoading ? (
         <Panel>
@@ -125,7 +125,7 @@ function ProtocolPanel() {
     { name: 'Bridge onto Solana', state: 'Approve', tone: 'accent' as const, detail: 'Bring assets onto Solana into a shielded pool.' },
   ];
   return (
-    <Panel className="span-7" eyebrow="Protocol" title="Zentry status">
+    <Panel className="span-7" eyebrow="Protocol" title="ZKSona status">
       <ul className="dx-modules is-status">
         {modules.map((m) => (
           <li key={m.name}>

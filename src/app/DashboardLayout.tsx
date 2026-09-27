@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet } from 'react-router';
+import { useEffect, useRef } from 'react';
+import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { appKitReady } from '@/app/appkit';
 import { CLUSTER_LABEL } from '@/app/config';
 import { usePortfolio, useWallet } from '@/app/hooks';
@@ -15,42 +15,31 @@ const queryClient = new QueryClient({
 
 type NavItem = { to: string; label: string; icon: IconName; end?: boolean };
 
-// Same grouping as the website's Protocol menu: Transact, Protect, Observe.
-const NAV: { group: string | null; items: NavItem[] }[] = [
-  { group: null, items: [{ to: '/app', label: 'Overview', icon: 'home', end: true }] },
-  { group: 'Transact', items: [{ to: '/app/private-tx', label: 'Private TX', icon: 'lock' }] },
-  {
-    group: 'Protect',
-    items: [
-      { to: '/app/vault', label: 'Shield Vault', icon: 'shield' },
-      { to: '/app/exposure', label: 'Exposure', icon: 'eye' },
-    ],
-  },
-  {
-    group: 'Observe',
-    items: [
-      { to: '/app/activity', label: 'Activity', icon: 'list' },
-      { to: '/app/assets', label: 'Assets', icon: 'coins' },
-      { to: '/app/network', label: 'Network', icon: 'pulse' },
-    ],
-  },
+// One row of tabs in the order a user works: look, act, protect, review.
+const NAV: NavItem[] = [
+  { to: '/app', label: 'Overview', icon: 'home', end: true },
+  { to: '/app/private-tx', label: 'Private TX', icon: 'lock' },
+  { to: '/app/vault', label: 'Shield Vault', icon: 'shield' },
+  { to: '/app/exposure', label: 'Exposure', icon: 'eye' },
+  { to: '/app/activity', label: 'Activity', icon: 'list' },
+  { to: '/app/assets', label: 'Assets', icon: 'coins' },
+  { to: '/app/network', label: 'Network', icon: 'pulse' },
 ];
 
-function SideNav({ onNavigate }: { onNavigate: () => void }) {
+function Tabs() {
+  const ref = useRef<HTMLElement>(null);
+  const { pathname } = useLocation();
+  // On narrow screens the tab row scrolls; keep the current page's tab in view.
+  useEffect(() => {
+    ref.current?.querySelector('.dx-tab.active')?.scrollIntoView({ inline: 'center', block: 'nearest' });
+  }, [pathname]);
   return (
-    <nav className="dx-nav" aria-label="Dashboard">
-      {NAV.map((g) => (
-        <div className="dx-nav-group" key={g.group ?? 'root'}>
-          {g.group ? <p className="dd-title">{g.group}</p> : null}
-          {g.items.map((it) => (
-            <NavLink key={it.to} to={it.to} end={it.end} className="dx-nav-link" onClick={onNavigate}>
-              <span className="dd-icon">
-                <Icon name={it.icon} />
-              </span>
-              {it.label}
-            </NavLink>
-          ))}
-        </div>
+    <nav className="dx-tabs" aria-label="Dashboard" ref={ref}>
+      {NAV.map((it) => (
+        <NavLink key={it.to} to={it.to} end={it.end} className="dx-tab">
+          <Icon name={it.icon} />
+          {it.label}
+        </NavLink>
       ))}
     </nav>
   );
@@ -85,55 +74,31 @@ function NetworkButton() {
 }
 
 function Shell() {
-  const [navOpen, setNavOpen] = useState(false);
-  const close = () => setNavOpen(false);
-
-  useEffect(() => {
-    if (!navOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setNavOpen(false);
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [navOpen]);
-
   return (
-    <div className={`dx${navOpen ? ' nav-open' : ''}`}>
+    <div className="dx">
       <meta name="robots" content="noindex" />
-      <aside className="dx-side">
-        <div className="dx-side-top">
-          <Link to="/" className="dx-logo" aria-label="Zentry website">
-            <Logo />
+      <header className="dx-bar">
+        <div className="dx-bar-row">
+          <Link to="/" className="dx-logo" aria-label="ZKSona website">
+            <Logo tone="dark" />
           </Link>
-          <button type="button" className="dx-icon-btn dx-side-close" onClick={close} aria-label="Close menu">
-            <Icon name="close" />
-          </button>
-        </div>
-        <SideNav onNavigate={close} />
-        <div className="dx-side-foot">
-          <Link to="/" className="dx-back" onClick={close}>
-            <Icon name="arrowLeft" />
-            Back to website
-          </Link>
-        </div>
-      </aside>
-      <button type="button" className="dx-scrim" aria-label="Close menu" tabIndex={-1} onClick={close} />
-
-      <div className="dx-main">
-        <div className="dx-top">
-          <button type="button" className="nav-burger dx-burger" aria-label="Open menu" aria-expanded={navOpen} onClick={() => setNavOpen(true)}>
-            <span />
-          </button>
-          <Link to="/" className="dx-top-logo" aria-label="Zentry website">
-            <Logo />
-          </Link>
+          <Tabs />
           <div className="dx-top-actions">
             <NetworkButton />
             <WalletButton />
           </div>
         </div>
-        <main className="dx-content">
-          <Outlet />
-        </main>
-      </div>
+      </header>
+      <main className="dx-content">
+        <Outlet />
+      </main>
+      <footer className="dx-foot">
+        <Link to="/" className="dx-back">
+          <Icon name="arrowLeft" />
+          Back to website
+        </Link>
+        <span className="dx-foot-note">ZKSona · private by proof</span>
+      </footer>
     </div>
   );
 }
@@ -142,8 +107,8 @@ function SetupRequired() {
   return (
     <div className="dx-setup">
       <meta name="robots" content="noindex" />
-      <title>Dashboard setup | Zentry</title>
-      <Link to="/" className="dx-logo" aria-label="Zentry website">
+      <title>Dashboard setup | ZKSona</title>
+      <Link to="/" className="dx-logo" aria-label="ZKSona website">
         <Logo />
       </Link>
       <div className="dx-panel is-frame dx-setup-card">

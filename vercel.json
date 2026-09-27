@@ -9,8 +9,8 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.zentry-shield.xyz" }],
-      "destination": "https://zentry-shield.xyz/:path*",
+      "has": [{ "type": "host", "value": "www.zksona.org" }],
+      "destination": "https://zksona.org/:path*",
       "permanent": true
     }
   ],

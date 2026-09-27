@@ -15,7 +15,10 @@ export function Cta() {
     <section className="section cta" id="contact">
       <div className="container">
         <div className="cta-box">
-          <h2 className="h2 tight">{CTA.title}</h2>
+          <div className="stack">
+            <p className="eyebrow">{CTA.eyebrow}</p>
+            <h2 className="h2 tight">{CTA.title}</h2>
+          </div>
           <form className="cta-form" onSubmit={onSubmit}>
             <label className="field">
               <span>{CTA.form.titleLabel}</span>

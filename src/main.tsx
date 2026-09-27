@@ -1,8 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router';
-import '@fontsource-variable/outfit';
-import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/martian-mono';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import './index.css';

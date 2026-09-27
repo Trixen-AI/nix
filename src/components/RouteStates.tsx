@@ -21,7 +21,7 @@ export function RouteFallback() {
 export function NotFound() {
   return (
     <main className="not-found">
-      <title>Not found | Zentry</title>
+      <title>Not found | ZKSona</title>
       <p className="eyebrow">/// 404</p>
       <h1 className="h3">Nothing lives at this address.</h1>
       <div className="not-found-actions">

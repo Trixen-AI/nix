@@ -22,11 +22,11 @@ if (appKitReady) {
     },
     themeMode: 'light',
     themeVariables: {
-      '--w3m-accent': '#6d45ff',
-      '--w3m-color-mix': '#0a0a0c',
+      '--w3m-accent': '#f98500',
+      '--w3m-color-mix': '#0a0a0b',
       '--w3m-color-mix-strength': 0,
-      '--w3m-font-family': "'Outfit Variable', 'Outfit', system-ui, sans-serif",
-      '--w3m-border-radius-master': '2px',
+      '--w3m-font-family': "'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif",
+      '--w3m-border-radius-master': '4px',
       '--w3m-z-index': 1000,
     },
     features: {
